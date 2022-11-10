@@ -11,6 +11,7 @@
 	}
 }
 .nav {
+	position: relative;
 	width: 100%;
 	padding: $box-spacing-s;
 	background-color: #fff;
@@ -47,16 +48,52 @@
 	&__icon {
 		margin: 0 0.5em;
 	}
-
-	.icon {
+	&__btn {
 		margin: 0 0.1em;
 		font-size: 1.2rem;
 		transition: all 0.5s;
 		&:hover {
 			color: $color-primary;
 		}
-		&-bars {
-			transform: scaleX(1.5);
+	}
+}
+.fullNav {
+	visibility: hidden;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	width: 100%;
+	padding: $box-spacing-s;
+	border-top: 1px solid $color-grey-border;
+	background-color: #fff;
+	opacity: 0;
+	transform: translateY(3em);
+	transition: all 0.5s;
+	z-index: 1;
+	&.show {
+		visibility: visible;
+		opacity: 1;
+		transform: translateY(0);	
+	}
+	&__list {
+		padding-bottom: $box-spacing-s;
+		margin-bottom: $box-spacing-s;
+		color: $color-black;
+		border-bottom: 1px solid $color-grey-border;
+		font-size: $font-size-s2;
+		font-weight: 800;
+		text-transform: uppercase;
+		transition: all 0.5s;
+		cursor: pointer;
+		&:first-child {
+			padding-top: $box-spacing-s;;
+		}
+		&:last-child {
+			border-bottom: none;
+			margin-bottom: 0;
+		}
+		&:hover {
+			color: $color-primary;
 		}
 	}
 }
