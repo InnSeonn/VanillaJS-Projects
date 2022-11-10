@@ -31,7 +31,7 @@
 	&__menu {
 		display: flex;
 	}
-	&__link {
+	&__list {
 		margin: 1em;
 		color: white;
 		font-size: $font-size-s3;
@@ -76,7 +76,6 @@
 		transform: translateY(0);	
 	}
 	&__list {
-		padding-bottom: $box-spacing-s;
 		margin-bottom: $box-spacing-s;
 		color: $color-black;
 		border-bottom: 1px solid $color-grey-border;
@@ -95,6 +94,10 @@
 		&:hover {
 			color: $color-primary;
 		}
+	}
+	&__link {
+		display: block;
+		padding-bottom: $box-spacing-s;
 	}
 }
 

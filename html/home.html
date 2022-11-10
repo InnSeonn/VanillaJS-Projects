@@ -11,7 +11,7 @@
 	<script src="../js/home.js" defer ></script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" id="home">
 		<!-- header -->
 		<nav class="nav">
 			<div class="nav__container">
@@ -19,12 +19,11 @@
 					<img src="../images/icons/logo1.png" alt="로고" class="logo__img">
 				</a>
 				<div class="nav__wide">
-					<ul class="nav__menu">
-						<li class="nav__link"><a href="#">home</a></li>
-						<li class="nav__link"><a href="#">about us</a></li>
-						<li class="nav__link"><a href="#">services</a></li>
-						<li class="nav__link"><a href="#">our works</a></li>
-						<li class="nav__link"><a href="#">our news</a></li>
+					<ul class="nav__menu links">
+						<li class="nav__list"><a href="#home">home</a></li>
+						<li class="nav__list"><a href="#about">about us</a></li>
+						<li class="nav__list"><a href="#works">our works</a></li>
+						<li class="nav__list"><a href="#news">our news</a></li>
 					</ul>
 					<a href="#" class="nav__hireBtn moreBtn moreBtn-b">hire us</a>
 					<ul class="nav__sns">
@@ -39,12 +38,11 @@
 				</div>
 			</div>
 			<div class="fullNav">
-				<ul class="fullNav__menu">
-					<li class="fullNav__list"><a href="#">home</a></li>
-					<li class="fullNav__list"><a href="#">about us</a></li>
-					<li class="fullNav__list"><a href="#">services</a></li>
-					<li class="fullNav__list"><a href="#">our works</a></li>
-					<li class="fullNav__list"><a href="#">our news</a></li>
+				<ul class="fullNav__menu links">
+					<li class="fullNav__list"><a class="fullNav__link" href="#home">home</a></li>
+					<li class="fullNav__list"><a class="fullNav__link" href="#about">about us</a></li>
+					<li class="fullNav__list"><a class="fullNav__link" href="#works">our works</a></li>
+					<li class="fullNav__list"><a class="fullNav__link" href="#news">our news</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -76,7 +74,7 @@
 			</div>
 		</section>
 		<!-- intro -->
-		<section class="intro">
+		<section class="intro" id="about">
 			<header class="header intro__header">
 				<div class="header__title intro__title">
 					<p class="header__sub">we are west</p>
@@ -161,7 +159,7 @@
 			</ul>
 		</section>
 		<!-- works -->
-		<section class="works">
+		<section class="works" id="works">
 			<header class="header">
 				<div class="header__title">
 					<p class="header__sub">latest works</p>
@@ -261,7 +259,7 @@
 			</div>
 		</section>
 		<!-- news -->
-		<section class="news">
+		<section class="news" id="news">
 			<header class="header">
 				<div class="header__title">
 					<p class="header__sub">news, tips & more</p>
