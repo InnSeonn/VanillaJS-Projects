@@ -2,6 +2,38 @@
 @import "./mixins.scss";
 @import "./icons.scss";
 
+//top button
+.aside {
+	visibility: hidden;
+	position: fixed;
+	right: calc($box-spacing-s * 2);
+	bottom: calc($box-spacing-s * 2);
+	width: 4em;
+	height: 4em;
+	padding: 0.5em;
+	z-index: 999;
+	transform: translateY(200%);
+	transition: all 0.5s;
+	&.show {
+		visibility: visible;
+		transform: translateY(0);
+	}
+}
+.topBtn {
+	@include center(row);
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: $color-primary;
+	color: #fff;
+	font-size: $font-size-s2;
+	transition: all 0.5s;
+	&:hover {
+		background-color: #000;
+		box-shadow: 0 0 10px 0 rgb(0, 0, 0, 40%);
+	}
+}
+
 //nav
 .logo {
 	$size: 3rem;
@@ -9,12 +41,24 @@
 		width: $size;
 		height: $size;
 	}
+	@at-root .nav.fixed & > img {
+		content: url('../images/icons/logo-bk.png');
+	}
 }
 .nav {
 	position: relative;
 	width: 100%;
 	padding: $box-spacing-s;
 	background-color: #fff;
+	transition: background-color 0.5s;
+	&.fixed {
+		position: fixed;
+		background-color: #fff;
+		z-index: 999;
+		animation-duration: 0.5s;
+		animation-timing-function: linear;
+		animation-fill-mode: forwards;
+	}
 
 	&__container {
 		display: flex;
@@ -33,20 +77,42 @@
 	}
 	&__list {
 		margin: 1em;
-		color: white;
+		color: #fff;
 		font-size: $font-size-s3;
 		font-weight: bold;
 		text-transform: uppercase;
+		@at-root .nav.fixed & {
+			color: #000;
+		}
 	}
 	&__hireBtn {
 		padding: 0.8em 1.6em;
 		margin: 0 $box-spacing-s;
+		@at-root .nav.fixed & {
+			border-color: #000;
+			color:#000;
+			&:hover {
+				border-color: $color-primary;
+				color: #fff;
+			}
+		}
 	}
 	&__sns {
 		display: flex;
 	}
 	&__icon {
 		margin: 0 0.5em;
+		color: #fff;
+		transition: all 0.5s;
+		@at-root .nav.fixed & {
+			color: #000;
+			&:hover {
+				color: $color-primary;
+			}
+		}
+		&:hover {
+			color: $color-primary;
+		}
 	}
 	&__btn {
 		margin: 0 0.1em;

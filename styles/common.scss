@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Raleway:wght@300;400;600;800&display=swap');
 @import "../styles/mixins.scss";
- 
+
 $max-width: 1200px;
 $fixed-width: 900px;
 $width-xs: 500px;
@@ -177,5 +177,21 @@ h1, h2, h3, h4, h5, h6 {
 	100% {
 		opacity: 0.8;
 		transform: scale(0.9);
+	}
+}
+@keyframes slideUp {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(-100%);
+	}
+}
+@keyframes slideDown {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0);
 	}
 }
