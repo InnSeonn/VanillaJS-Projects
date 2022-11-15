@@ -51,26 +51,34 @@
 		</nav>
 		<!-- hero -->
 		<section class="hero">
-			<ul class="hero__list">
-				<li class="hero__item">
-					<div class="hero__contents">
-						<p class="hero__title">innovation <br/> meets simplicity</p>
-						<p class="hero__text">We love what we do and we do it with passion</p>
-						<a href="#" class="hero__btn moreBtn moreBtn-b">more about us</a>
-					</div>
-				</li>
-				<li class="hero__item" style="display: none">
-					<div class="hero__contents">
-						<p class="hero__title">we create, <br/> design & innovate</p>
-						<p class="hero__text">We love what we do and we do it with passion</p>
-						<a href="#" class="hero__btn moreBtn moreBtn-b">more about us</a>
-					</div>
-				</li>
-			</ul>
-			<ul class="hero__pagenation">
-				<li class="hero__page"></li>
-				<li class="hero__page"></li>
-			</ul>
+			<div class="hero__slider">
+				<ul class="hero__list hero__slideContainer">
+					<li class="hero__item hero__slide">
+						<div class="hero__imgContainer">
+							<img class="hero__img" src="../images/buildings/hero1.jpg" alt="">
+						</div>
+						<div class="hero__contents">
+							<p class="hero__title"><span class="hero__title-1">innovation</span><span class="hero__title-2">meets simplicity</span></p>
+							<p class="hero__text">We love what we do and we do it with passion</p>
+							<a href="#" class="hero__btn moreBtn moreBtn-b">more about us</a>
+						</div>
+					</li>
+					<li class="hero__item hero__slide">
+						<div class="hero__imgContainer">
+							<img class="hero__img" src="../images/buildings/hero2.jpg" alt="">
+						</div>
+						<div class="hero__contents">
+							<p class="hero__title"><span class="hero__title-1">we create,</span><span class="hero__title-2">design & innovate</span></p>
+							<p class="hero__text">We love what we do and we do it with passion</p>
+							<a href="#" class="hero__btn moreBtn moreBtn-b">more about us</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="hero__pagenation">
+				<!-- <button class="hero__page"></button>
+				<button class="hero__page"></button> -->
+			</div>
 			<div class="hero__btnContainer">
 				<button class="hero__prevBtn icon-left"></button>
 				<button class="hero__nextBtn icon-right"></button>

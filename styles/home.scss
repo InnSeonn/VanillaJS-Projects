@@ -1,5 +1,6 @@
 @import "./common.scss";
 @import "./mixins.scss";
+@import "./keyframes.scss";
 @import "./icons.scss";
 
 //top button
@@ -170,38 +171,83 @@
 //hero
 .hero {
 	$p: &;
+	$active: '.hero__item.active';
 	position: relative;
+	height: 100vh;
 	color: #fff;
 	&__item {
+		overflow: hidden;
 		@include center(column);
-		position: relative;
+		position: absolute;
 		width: 100%;
 		height: 100vh;
 		font-weight: bold;
 		text-align: center;
-		@for $i from 1 to 2 {
-			&:nth-child(#{$i}) {
-				background: center/cover no-repeat url('../images/buildings/hero#{$i}.jpg');
-			}
+		opacity: 0;
+		transition: opacity 1s ease-in-out;
+		&.active {
+			opacity: 1;
 		}
-		&::before {
+	}
+	&__imgContainer {
+		overflow: hidden;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		&::after {
 			@include darkness();
+		}
+	}
+	&__img {
+		width: 100%;
+		height: 100%;
+		transition: all 10s;
+		@at-root #{$active} & {
+			transform-origin: center;
+			transform: scale(1.2);
 		}
 	}
 	&__contents {
 		z-index: 1;
 	}
+	$duration: 0.5s;
+	$delay1: 1s;
+	$delay2: 1.5s;
+	$delay3: 2s;
 	&__title {
 		font-family: $font-serif;
 		font-size: $font-size-l1;
 		text-transform: capitalize;
+		transition: all 1s;
+		&-1 {
+			display: block;
+			animation: zeroToTop $duration forwards;
+			@at-root #{$active} & {
+				animation: rightToLeft $duration both;
+			}
+		}
+		&-2 {
+			display: block;
+			animation: zeroToTop $duration forwards;
+			@at-root #{$active} & {
+				animation: leftToRight $duration both $delay1;
+			}
+		}
 	}
 	&__text {
 		margin: calc($box-spacing-s * 2) 0;
 		font-size: $font-size-s4;
+		animation: zeroToBottom $duration both;
+		@at-root #{$active} & {
+			animation: bottomToTop $duration both $delay2;
+		}
 	}
 	&__btn {
 		display: none;
+		animation: zeroToBottom $duration both;
+		@at-root #{$active} & {
+			animation: bottomToTop $duration both $delay3;
+		}
 	}
 	&__btnContainer {
 		position: absolute;
@@ -253,6 +299,9 @@
 		opacity: 0.5;
 		z-index: 2;
 		cursor: pointer;
+		&.active {
+			opacity: 1;
+		}
 		&:hover {
 			opacity: 1;
 		}
