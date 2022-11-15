@@ -1,0 +1,110 @@
+/** 더보기 버튼 애니메이션 **/
+@keyframes showText {
+	50% {color: inherit;}
+	100% {
+		color: $color-primary;
+		opacity: 1;
+		transform: translate(calc(100% + 2em), 50%);
+	}
+}
+@keyframes colorChange {
+	50% {color: inherit;}
+	100% {color: $color-primary;}
+}
+
+/** 아이콘 애니메이션 **/
+@keyframes bounce {
+	0% {
+		opacity: 0.8;
+		transform: scale(0.9);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0.8;
+		transform: scale(0.9);
+	}
+}
+
+/** 네비게이션 바 애니메이션 **/
+@keyframes slideUp {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(-100%);
+	}
+}
+@keyframes slideDown {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+/** 슬라이드 애니메이션 **/
+$deg: 25deg;
+@keyframes leftToRight {
+	0% {
+		opacity: 0;
+		transform: translateX(-100%) skewX($deg);
+	}
+	20% {
+		opacity: 0;
+		transform: translateX(-50%) skewX($deg);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0) skewX(0);
+	}
+}
+@keyframes rightToLeft {
+	0% {
+		opacity: 0;
+		transform: translateX(100%) skewX(-$deg);
+	}
+	20% {
+		opacity: 0;
+		transform: translateX(50%) skewX(-$deg);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+$pos: 2em;
+@keyframes zeroToTop {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-$pos);
+	}
+}
+@keyframes zeroToBottom {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY($pos);
+	}
+}
+@keyframes bottomToTop {
+	0% {
+		opacity: 0;
+		transform: translateY($pos);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
