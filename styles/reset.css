@@ -52,6 +52,7 @@ button {
 }
 img {
 	object-fit: cover;
+	-webkit-user-drag: none;
 }
 a {
 	color: inherit;
