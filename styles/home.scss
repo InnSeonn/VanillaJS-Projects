@@ -580,7 +580,7 @@
 }
 
 //reviews
-.reivews {
+.reviews {
 	padding-bottom: $box-spacing-m;
 	&__img {
 		width: 3rem;
@@ -588,6 +588,7 @@
 		border-radius: 50%;
 	}
 	&__text {
+		max-width: $fixed-width;
 		padding: $box-spacing-s;
 		color: $color-grey;
 		font-size: $font-size-m;

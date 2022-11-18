@@ -7,6 +7,24 @@ const media = {
 }
 let mediaSize = window.innerWidth > media.l ? 'l' : window.innerWidth > media.m ? 'm' : window.innerWidth > media.s ? 's' : 'xs';
 let checkMedia = '';
+let prevWidth = window.innerWidth;
+
+window.addEventListener('resize', () => {
+	if(changeMediaSize()) {
+		mediaSize = checkMedia;
+		// clientSlide.resetSlide();
+	}
+	prevWidth = window.innerWidth;
+});
+
+function changeMediaSize() {
+	window.innerWidth > media.l ? checkMedia = 'l'
+	: window.innerWidth > media.m ? checkMedia = 'm'
+	: window.innerWidth > media.s ? checkMedia = 's'
+	: checkMedia = 'xs';
+
+	return checkMedia !== mediaSize ? true : false;
+};
 
 const company = ['nationwide.com', 'pfizer.com', 'tysonfoods.com', 'att.com', 'costco.com', 'metlife.com', 'dow.com', 'hcahealthcare.com', 'google.com', 'fedex.com'];
 
@@ -32,8 +50,9 @@ class Slide {
 		this.swipe = false;
 		this.start = 0;
 		this.x = 0;
+		this.displayCount = 1;
 	}
-	initSlide () {
+	initSlide() {
 		this.setPageButton();
 	}
 	setPageButton() {
@@ -145,7 +164,8 @@ class HeroSlide extends Slide {
 class ClientSlide extends Slide {
 	constructor(name) {
 		super(name);
-		this.displayCount = 1;
+		// this.displayCount = 1;
+		this.resetSlide = this.resetSlide.bind(this);
 	}
 	initSlide () {
 		this.createSlideItem();
@@ -189,25 +209,42 @@ class ClientSlide extends Slide {
 	}
 }
 
+class ReviewSlide extends Slide {
+	constructor(name) {
+		super(name);
+	}
+	async initSlide() {
+		await this.getData();
+		this.setPageButton();
+		this.setSwipeEvent();
+	}
+	async getData() {
+		const res = await fetch(`http://localhost:3001/reviews`);
+		const json = await res.json();
+		this.createSlideItem(json);
+	}
+	createSlideItem(data) {
+		const reviews = data.review;
+		for(let item of reviews) {
+			const li = document.createElement('li');
+			li.classList.add(`${this.name}__slide`, 'slider__slide');
+			const html = `
+				<img class="${this.name}__img" src="${item.src}">
+				<p class="${this.name}__text">${item.text}</p>
+				<p class="${this.name}__user icon-quote">${item.name}</p>
+			`;
+			li.innerHTML = html;
+			this.container.appendChild(li);
+		}
+		this.slide = this.container.querySelectorAll(`.${this.name}__slide`);
+	}
+}
+
 const heroSlide = new HeroSlide('hero');
 heroSlide.initSlide();
 
 const clientSlide = new ClientSlide('clients'); 
 clientSlide.initSlide();
 
-
-window.addEventListener('resize', () => {
-	if(changeMediaSize()) {
-		mediaSize = checkMedia;
-		clientSlide.resetSlide();
-	}
-});
-
-function changeMediaSize() {
-	window.innerWidth > media.l ? checkMedia = 'l'
-	: window.innerWidth > media.m ? checkMedia = 'm'
-	: window.innerWidth > media.s ? checkMedia = 's'
-	: checkMedia = 'xs';
-
-	return checkMedia !== mediaSize ? true : false;
-};
+const reviewSlide = new ReviewSlide('reviews');
+reviewSlide.initSlide();
