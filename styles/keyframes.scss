@@ -108,3 +108,100 @@ $pos: 2em;
 		transform: translateY(0);
 	}
 }
+
+@keyframes show {
+	0% {
+		opacity: 0;
+		transform: scale(0);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/** works 애니메이션 **/
+$spacing: calc($box-spacing-s * 2);
+$translate-pos: calc(100% + $spacing);
+$translate-neg: calc(-100% - $spacing);
+@keyframes inLeft {
+	0% {
+		visibility: visible;
+		transform: translateX($translate-neg);
+	}
+	100% {
+		visibility: visible;
+		transform: translateX(0);
+	}
+}
+@keyframes inRight {
+	0% {
+		visibility: visible;
+		transform: translateX($translate-pos);
+	}
+	100% {
+		visibility: visible;
+		transform: translateX(0);
+	}
+}
+@keyframes inTop {
+	0% {
+		visibility: visible;
+		transform: translateY($translate-neg);
+	}
+	100% {
+		visibility: visible;
+		transform: translateY(0);
+	}
+}
+@keyframes inBottom {
+	0% {
+		visibility: visible;
+		transform: translateY($translate-pos);
+	}
+	100% {
+		visibility: visible;
+		transform: translateY(0);
+	}
+}
+
+@keyframes outLeft {
+	0% {
+		visibility: visible;
+		transform: translateX(0);
+	}
+	100% {
+		visibility: hidden;
+		transform: translateX($translate-neg);
+	}
+}
+@keyframes outRight {
+	0% {
+		visibility: visible;
+		transform: translateX(0);
+	}
+	100% {
+		visibility: hidden;
+		transform: translateX($translate-pos);
+	}
+}
+@keyframes outTop {
+	0% {
+		visibility: visible;
+		transform: translateY(0);
+	}
+	100% {
+		visibility: hidden;
+		transform: translateY($translate-neg);
+	}
+}
+@keyframes outBottom {
+	0% {
+		visibility: visible;
+		transform: translateY(0);
+	}
+	100% {
+		visibility: hidden;
+		transform: translateY($translate-pos);
+	}
+}
