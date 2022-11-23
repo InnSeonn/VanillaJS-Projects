@@ -128,6 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 		-moz-user-select: none;
 		-webkit-user-select: none;
 		-webkit-user-drag: none;
+		transform: translateX(-100%);
 	}
 	&__slide {
 		@include center(column);
