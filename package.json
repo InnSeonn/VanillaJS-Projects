@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "concurrently \"nodemon public/routes/index.js\" \"parcel html/home.html\""
   },
   "dependencies": {
     "clearbit": "^1.3.5",
+    "concurrently": "^7.5.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
