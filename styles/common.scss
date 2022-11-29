@@ -121,6 +121,8 @@ h1, h2, h3, h4, h5, h6 {
 .slider {
 	@include center(column);
 	overflow: hidden;
+	max-width: $max-width;
+	margin: 0 auto;
 	&__slideContainer {
 		display: flex;
 		width: 100%;
