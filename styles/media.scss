@@ -133,7 +133,7 @@
 	.create {
 		background-size: 100% 75%;
 		&__container {
-			background: linear-gradient(rgba(0, 0, 0, 0.5) 75%, $color-white 75%);
+			background: linear-gradient(rgba(0, 0, 0, 0.2) 75%, $color-white 75%);
 		}
 		&__header {
 			@include fixed-width($fixed-width);
