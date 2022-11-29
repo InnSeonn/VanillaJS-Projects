@@ -9,23 +9,6 @@ let mediaSize = window.innerWidth > media.l ? 'l' : window.innerWidth > media.m 
 let checkMedia = '';
 let prevWidth = window.innerWidth;
 
-function changeMediaSize() {
-	window.innerWidth > media.l ? checkMedia = 'l'
-	: window.innerWidth > media.m ? checkMedia = 'm'
-	: window.innerWidth > media.s ? checkMedia = 's'
-	: checkMedia = 'xs';
-
-	return checkMedia !== mediaSize ? true : false;
-};
-
-window.addEventListener('resize', () => {
-	if(changeMediaSize()) {
-		mediaSize = checkMedia;
-		clientSlide.resetSlide();
-	}
-	prevWidth = window.innerWidth;
-});
-
 const company = ['nationwide.com', 'pfizer.com', 'tysonfoods.com', 'att.com', 'costco.com', 'metlife.com', 'dow.com', 'hcahealthcare.com', 'google.com', 'fedex.com'];
 
 class Slide {
@@ -40,11 +23,15 @@ class Slide {
 		this.moveToSlide = this.moveToSlide.bind(this);
 		this.setPageButton = this.setPageButton.bind(this);
 		this.createSlideItem = this.createSlideItem.bind(this);
+		this.createCloneItem = this.createCloneItem.bind(this);
 		this.setSwipeEvent = this.setSwipeEvent.bind(this);
 		this.swipeStart = this.swipeStart.bind(this);
 		this.swipeEnd = this.swipeEnd.bind(this);
 		this.swipeMove = this.swipeMove.bind(this);
+		this.resizing = this.resizing.bind(this);
+		this.resetSlide = this.resetSlide.bind(this);
 		this.displayCount = Number(1); //표시할 슬라이드 개수
+		this.clonePageCount = Number(1);
 		this.curr = 0; //현재 페이지
 		this.x = 0;
 	}
@@ -62,8 +49,7 @@ class Slide {
 	}
 	moveToSlide(e) {
 		const pageId = Number(e.target.dataset.id);
-		let x = (pageId + 1) * this.slide[0].offsetWidth * this.displayCount;
-		if(pageId === this.pages.length - 1) x = (this.slide[0].offsetWidth * this.slide.length); //마지막 페이지에 슬라이드 공간이 남지 않고 마지막 슬라이드가 위치하도록
+		let x = (pageId + this.clonePageCount) * this.slide[0].offsetWidth * this.displayCount; //clone 슬라이드 포함한 x 값
 
 		this.container.style.transition = 'all 1s';
 		this.container.style.transform = `translateX(-${x}px)`;
@@ -71,8 +57,9 @@ class Slide {
 		this.pages[pageId].classList.add('active');
 		this.curr = pageId;
 	}
-	createSlideItem() { //Clone
-		for(let i = 1; i <= this.displayCount; i++) {
+	createSlideItem() {}
+	createCloneItem() { //Clone
+		for(let i = 1; i <= this.displayCount * this.clonePageCount; i++) {
 			const start = this.slide[i - 1].cloneNode(true);
 			start.classList.add('clone');
 			this.container.insertAdjacentElement('beforeend', start);
@@ -96,11 +83,12 @@ class Slide {
 	swipeMove(e) {
 		this.x = new WebKitCSSMatrix(getComputedStyle(this.container).transform).e;
 		const pos = this.x + e.movementX; //이동할 위치 - 현재 위치 + 이동한 거리
+		const slideWidth = this.slide[0].offsetWidth;
 
-		if(pos >= 0) { //스와이프 중에 시작 지점을 지나면 끝 지점으로 이동
-			this.x = -this.slide[0].offsetWidth * this.slide.length;
-		} else if(pos <= -this.slide[0].offsetWidth * (this.slide.length + this.displayCount)) { //스와이프 중에 끝 지점을 지나면 시작 지점으로 이동
-			this.x = -this.slide[0].offsetWidth * this.displayCount;
+		if(pos >= -slideWidth * (this.clonePageCount - 1)) { //스와이프 중에 시작 지점을 지나면 끝 지점으로 이동
+			this.x = -slideWidth * (this.slide.length + this.clonePageCount - 1);
+		} else if(pos <= -slideWidth * (this.slide.length + this.displayCount)) { //스와이프 중에 끝 지점을 지나면 시작 지점으로 이동
+			this.x = -slideWidth * this.displayCount;
 		}
 		
 		this.container.style.transition = 'none';
@@ -121,16 +109,24 @@ class Slide {
 		this.container.style.transition = 'all 1s';
 		this.container.style.transform = `translateX(${this.x}px)`;
 
-		//가장 왼쪽에 있는 슬라이드에 해당하는 페이지 버튼 활성화
+		//해당하는 페이지 버튼 활성화
 		this.pages[this.curr].classList.remove('active');
-		if(slideNum >= this.slide.length + this.displayCount) {
+		if(slideNum < this.displayCount * this.clonePageCount) {
+			this.curr = this.pages.length - 1;
+		} else if(slideNum > this.pages.length * (this.displayCount * this.clonePageCount)) {
 			this.curr = 0;
 		} else {
-			const index = Math.floor(slideNum / this.displayCount) - 1;
-			this.curr = index < 0 ? this.pages.length - 1 : index > this.pages.length - 1 ? 0 : index;
+			this.curr = Math.floor(slideNum / this.displayCount) - this.clonePageCount;
 		}
 		this.pages[this.curr].classList.add('active');
 	}
+	resizing(e) {
+		const x = this.x = new WebKitCSSMatrix(getComputedStyle(this.container).transform).e;
+		const slideNum = Math.abs(Math.round(x / this.slide[0].offsetWidth));
+		this.container.style.transition = 'none';
+		this.container.style.transform = `translateX(-${slideNum * this.slide[0].offsetWidth}px)`;
+	}
+	resetSlide() {}
 }
 
 class HeroSlide extends Slide { 
@@ -179,16 +175,19 @@ class HeroSlide extends Slide {
 class ClientSlide extends Slide {
 	constructor(name) {
 		super(name);
+		this.setDisplayCount = this.setDisplayCount.bind(this);
+	}
+	initSlide() {
+		this.setDisplayCount();
+		this.createSlideItem();
+		super.setPageButton();
+		this.setSwipeEvent();
+	}
+	setDisplayCount() {
 		this.displayCount = mediaSize === 'l' ? this.displayCount = Number(5)
 		: mediaSize === 'm' ? this.displayCount = Number(4)
 		: mediaSize === 's' ? this.displayCount = Number(3)
 		: this.displayCount = Number(1);
-		this.resetSlide = this.resetSlide.bind(this);
-	}
-	initSlide() {
-		this.createSlideItem();
-		super.setPageButton();
-		this.setSwipeEvent();
 	}
 	createSlideItem() { 
 		for(let name of company) {
@@ -200,15 +199,20 @@ class ClientSlide extends Slide {
 			this.container.appendChild(li);
 		}
 		this.slide = this.container.querySelectorAll(`.${this.name}__slide`);
-		super.createSlideItem();
+		super.createCloneItem();
 	}
-	resetSlide() { //window resize에 따라 페이지 버튼 재설정
+	resetSlide() { //window resize에 따라 슬라이드 재설정
 		this.curr = 0;
-		this.container.style.transform = 'translateX(0)';
-		while(this.page.children.length > 0) {
-			this.page.removeChild(this.page.lastChild);
+		this.container.style.transform = 'translateX(-100%)';
+		while(this.page.childElementCount > 0) {
+			this.page.removeChild(this.page.lastElementChild);
 		}
-		this.setPageButton();
+		while(this.container.childElementCount > 0) {
+			this.container.removeChild(this.container.lastElementChild);
+		}
+		this.setDisplayCount();
+		this.createSlideItem();
+		super.setPageButton();
 	}
 }
 
@@ -240,17 +244,23 @@ class ReviewSlide extends Slide {
 			this.container.appendChild(li);
 		}
 		this.slide = this.container.querySelectorAll(`.${this.name}__slide`);
-		super.createSlideItem();
+		super.createCloneItem();
+	}
+	resetSlide() {
+		this.pages[0].click();
 	}
 }
 
 class NewsSlide extends Slide {
 	constructor(name) {
 		super(name);
+		this.setMarginLeft = this.setMarginLeft.bind(this);
+		this.clonePageCount = 2; //media = 's'인 경우, 한 페이지에 이전/다음 슬라이드가 보이기 때문에 클론 페이지를 하나 더 추가
 	}
 	async initSlide() {
 		await this.getData();
 		super.setPageButton();
+		this.setMarginLeft();
 		this.setSwipeEvent();
 	}
 	async getData() {
@@ -278,18 +288,45 @@ class NewsSlide extends Slide {
 			this.container.appendChild(article);
 		}
 		this.slide = this.container.querySelectorAll(`.${this.name}__slide`);
-		super.createSlideItem();
+		super.createCloneItem();
+	}
+	setMarginLeft() {
+		mediaSize === 's' ? this.container.style.marginLeft = `${this.slide[0].offsetWidth / 2}px`
+		: mediaSize === 'm' || mediaSize === 'l' ? this.container.style.marginLeft = `${this.slide[0].offsetWidth}px`
+		: this.container.style.marginLeft = '0';
+	}
+	resizing(e) {
+		super.resizing(e);
+		this.setMarginLeft();
+	}
+	resetSlide() {
+		this.setMarginLeft();
+		this.pages[0].click();
 	}
 }
 
 const heroSlide = new HeroSlide('hero');
-heroSlide.initSlide();
-
 const clientSlide = new ClientSlide('clients'); 
-clientSlide.initSlide();
-
 const reviewSlide = new ReviewSlide('reviews');
-reviewSlide.initSlide();
-
 const newsSlide = new NewsSlide('news');
-newsSlide.initSlide();
+const slideElems = [heroSlide, clientSlide, reviewSlide, newsSlide];
+slideElems.map(slide => slide.initSlide());
+
+function changeMediaSize() {
+	window.innerWidth > media.l ? checkMedia = 'l'
+	: window.innerWidth > media.m ? checkMedia = 'm'
+	: window.innerWidth > media.s ? checkMedia = 's'
+	: checkMedia = 'xs';
+
+	return checkMedia !== mediaSize ? true : false;
+};
+
+window.addEventListener('resize', () => {
+	slideElems.slice(1).map(slide => slide.resizing());
+	if(changeMediaSize()) {
+		mediaSize = checkMedia;
+		clientSlide.resetSlide();
+		newsSlide.resetSlide();
+	}
+	prevWidth = window.innerWidth;
+});

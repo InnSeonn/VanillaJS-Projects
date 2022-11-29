@@ -5,7 +5,6 @@
 		}
 	}
 	.header {
-		// max-width: $fixed-width;
 		&__desc {
 			width: 100%;
 		}
@@ -60,7 +59,7 @@
 	}
 	.news {
 		&__slideContainer {
-			margin-left: 50%;
+			transform: translateX(-100%);
 		}
 		&__slide {
 			min-width: 50%;
@@ -118,7 +117,6 @@
 		&__header {
 			display: flex;
 			flex-direction: row;
-			// max-width: $fixed-width;
 		}
 		&__title {
 			text-align: right;
@@ -169,12 +167,10 @@
 	}
 	.news {
 		&__slideContainer {
-			justify-content: center;
-			margin-left: 0;
+			transform: translateX(-66.6666%);
 		}
 		&__slide {
-			min-width: auto;
-			width: 100%;
+			min-width: 33.3333%;
 		}
 		&__contents {
 			padding: 2.5em;
