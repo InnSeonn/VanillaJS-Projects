@@ -9,7 +9,7 @@ let mediaSize = window.innerWidth > media.l ? 'l' : window.innerWidth > media.m 
 let checkMedia = '';
 let prevWidth = window.innerWidth;
 
-const company = ['nationwide.com', 'pfizer.com', 'tysonfoods.com', 'att.com', 'costco.com', 'metlife.com', 'dow.com', 'hcahealthcare.com', 'google.com', 'fedex.com'];
+const company = ['nationwide.com', 'pfizer.com', 'tysonfoods.com', 'att.com', 'costco.com', 'metlife.com', 'dow.com', 'hcahealthcare.com', 'google.com', 'allstate.com'];
 
 class Slide {
 	constructor(name) {
