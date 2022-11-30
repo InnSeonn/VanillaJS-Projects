@@ -111,50 +111,54 @@ function filtering(e) {
 	displayItem();
 }
 
-function hovering(e) {
+function hovering(e) { //works mouseenter
 	const elem = e.currentTarget;
-	elem.addEventListener('mousemove', showHover);
-	elem.addEventListener('mouseleave', hideHover);
+	elem.addEventListener('mousemove', showHoverItem);
+	elem.addEventListener('mouseleave', hideHoverItem);
 	elem.hoverElem = elem.querySelector('.portfolio__links');
-	elem.left = elem.offsetLeft;
-	elem.top = elem.offsetTop;
+	elem.left = elem.offsetLeft + elem.clientLeft;
+	elem.top = elem.offsetTop + elem.clientLeft;
 	elem.right = elem.left + elem.clientWidth;
 	elem.bottom = elem.top + elem.clientHeight;
 }
 
-function showHover(e) {
-	// if(e.pageX >= this.left - 5 && e.pageX <= this.left + 15) {
-	// 	e.movementX > 0 ? this.hoverElem.style.animationName = 'inLeft' : this.hoverElem.style.animationName = 'outLeft';
-	// } else if(e.pageX >= this.right - 5 && e.pageX <= this.right + 15) {
-	// 	e.movementX < 0 ? this.hoverElem.style.animationName = 'inRight' : this.hoverElem.style.animationName = 'outRight';
-	// } else if(e.pageY >= this.top - 5 && e.pageY <= this.top + 15) {
-	// 	e.movementY > 0 ? this.hoverElem.style.animationName = 'inTop' : this.hoverElem.style.animationName = 'outTop';
-	// } else if(e.pageY >= this.bottom - 5 && e.pageY <= this.bottom + 15) {
-	// 	e.movementY < 0 ? this.hoverElem.style.animationName = 'inBottom' : this.hoverElem.style.animationName = 'outBottom';
-	// }
+let lastPosition = undefined;
+function showHoverItem(e) { //works mousemove
 	if(getComputedStyle(this.hoverElem).animationName.includes('in')) return;
-	if(e.pageX >= this.left - 5 && e.pageX <= this.left + 15) {
-		this.hoverElem.style.animationName = 'inLeft';
-	} else if(e.pageX >= this.right - 5 && e.pageX <= this.right + 15) {
-		this.hoverElem.style.animationName = 'inRight';
-	} else if(e.pageY >= this.top - 5 && e.pageY <= this.top + 15) {
-		this.hoverElem.style.animationName = 'inTop';
-	} else if(e.pageY >= this.bottom - 5 && e.pageY <= this.bottom + 15) {
-		this.hoverElem.style.animationName = 'inBottom';
+	if(lastPosition === undefined) {
+		lastPosition = {
+			x: e.pageX,
+			y: e.pageY,
+		};
+		return ;
 	}
+
+	let direction = '';
+	//마우스 이동 방향에서 hover 아이템이 표시
+	//이동 변화가 큰 방향(수직, 수평)으로 결정
+	if(lastPosition.x - e.pageX < 0) { //left
+		direction = lastPosition.y - e.pageY < 0 ?
+		Math.abs(lastPosition.y - e.pageY) > Math.abs(lastPosition.x - e.pageX) ? 'inTop' : 'inLeft'
+		: lastPosition.y - e.pageY > Math.abs(lastPosition.x - e.pageX) ? 'inBottom' : 'inLeft';
+	} else { //right
+		direction = lastPosition.y - e.pageY < 0 ?
+		Math.abs(lastPosition.y - e.pageY) > lastPosition.x - e.pageX ? 'inTop' : 'inRight'
+		: lastPosition.y - e.pageY > lastPosition.x - e.pageX ? 'inBottom' : 'inRight';
+	}
+	this.hoverElem.style.animationName = direction;
+	lastPosition = undefined;
 }
 
-function hideHover(e) {
-	this.removeEventListener('mousemove', showHover)
-	this.removeEventListener('mouseleave', hideHover);
-
-	if(e.pageX <= this.left + 15) {
+function hideHoverItem(e) { //works mouseleave
+	this.removeEventListener('mousemove', showHoverItem)
+	this.removeEventListener('mouseleave', hideHoverItem);
+	if(e.pageX <= this.left) {
 		this.hoverElem.style.animationName = 'outLeft';
-	} else if(e.pageX >= this.right - 15) {
+	} else if(e.pageX >= this.right) {
 		this.hoverElem.style.animationName = 'outRight';
-	} else if(e.pageY <= this.top + 15) {
+	} else if(e.pageY <= this.top) {
 		this.hoverElem.style.animationName = 'outTop';
-	} else if(e.pageY >= this.bottom - 15) {
+	} else if(e.pageY >= this.bottom) {
 		this.hoverElem.style.animationName = 'outBottom';
 	}
 }
