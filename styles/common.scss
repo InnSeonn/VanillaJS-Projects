@@ -10,7 +10,7 @@ $width-l: 1200px;
 
 $box-spacing-s: 1em;
 $box-spacing-m: 5.375em;
-// $box-spacing-l: 6.6em;
+//$box-spacing-l: 6.6em;
 
 $font-serif: 'Arvo', serif;
 $font-sans: 'Raleway', sans-serif;
@@ -41,7 +41,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: 'Arvo', serif;
 }
 
-//title style
+// title style
 .header {
 	display: flex;
 	flex-direction: column;
@@ -91,7 +91,7 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
-//more button
+// more button
 .moreBtn {
 	display: inline-block;
 	padding: 1.4em 3em;
@@ -117,7 +117,7 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
-//slide
+// slide
 .slider {
 	@include center(column);
 	overflow: hidden;
@@ -138,7 +138,7 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
-//slide pagenation
+// slide pagenation
 .pagenation {
 	display: flex;
 	align-items: flex-end;

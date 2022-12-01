@@ -3,7 +3,7 @@
 @import "./keyframes.scss";
 @import "./icons.scss";
 
-//top button
+// top button
 .aside {
 	visibility: hidden;
 	position: fixed;
@@ -37,7 +37,7 @@
 	}
 }
 
-//nav
+// nav
 .logo {
 	$size: 2rem;
 	&__img {
@@ -121,9 +121,6 @@
 		margin: 0 0.4em;
 		font-size: 1.2rem;
 		transition: all 0.5s;
-		// &:hover {
-		// 	color: $color-primary;
-		// }
 		@media (hover: hover) and (pointer: fine) {
 			&:hover {
 				color: $color-primary;
@@ -175,7 +172,7 @@
 	}
 }
 
-//hero
+// hero
 .hero {
 	$p: &;
 	$h: 90vh;
@@ -319,7 +316,7 @@
 	}
 } 
 
-//intro
+// intro
 .intro {
 	$p: &;
 	padding: 0 $box-spacing-s;
@@ -390,7 +387,7 @@
 	}
 }
 
-//create
+// create
 .create {
 	$p: &;
 	background: top / 200% 50% no-repeat url('../images/bg1-1920.jpg');
@@ -407,8 +404,7 @@
 		margin-bottom: calc($box-spacing-s / 2);
 		color: #fff;
 		font-family: $font-serif;
-		// font-size: $font-size-l2;
-		font-size: 10vw;
+		font-size: $font-size-l2;
 		line-height: 1.2em;
 	}
 	&__desc {
@@ -461,13 +457,13 @@
 	}
 }
 
-//clients
+// clients
 .clients {
 	padding-bottom: $box-spacing-m;
 	background-color: $color-white;
 }
 
-//works
+// works
 .works {
 	padding-bottom: $box-spacing-m;
 	&__category {
@@ -581,7 +577,7 @@
 	}
 }
 
-//provide
+// provide
 .provide {
 	&__item {
 		position: relative;
@@ -615,7 +611,7 @@
 	}
 }
 
-//reviews
+// reviews
 .reviews {
 	padding-bottom: $box-spacing-m;
 	&__img {
@@ -649,7 +645,7 @@
 	}
 }
 
-//news
+// news
 .news {
 	$p: &;
 	padding-bottom: $box-spacing-m;
@@ -756,7 +752,7 @@
 	}
 }
 
-//build
+// build
 .build {
 	background-color: $color-primary;
 	&__container {
@@ -777,7 +773,7 @@
 	}
 }
 
-//footer
+// footer
 .footer {
 	padding-bottom: $box-spacing-s * 2;
 	background-color: $color-black;
