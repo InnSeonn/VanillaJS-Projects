@@ -29,15 +29,17 @@
 	color: #fff;
 	font-size: $font-size-s2;
 	transition: all 0.5s;
-	&:hover {
-		background-color: #000;
-		box-shadow: 0 0 10px 0 rgb(0, 0, 0, 40%);
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			background-color: #000;
+			box-shadow: 0 0 10px 0 rgb(0, 0, 0, 40%);
+		}
 	}
 }
 
 //nav
 .logo {
-	$size: 3rem;
+	$size: 2rem;
 	&__img {
 		width: $size;
 		height: $size;
@@ -119,8 +121,13 @@
 		margin: 0 0.4em;
 		font-size: 1.2rem;
 		transition: all 0.5s;
-		&:hover {
-			color: $color-primary;
+		// &:hover {
+		// 	color: $color-primary;
+		// }
+		@media (hover: hover) and (pointer: fine) {
+			&:hover {
+				color: $color-primary;
+			}
 		}
 	}
 }
@@ -171,16 +178,17 @@
 //hero
 .hero {
 	$p: &;
+	$h: 90vh;
 	$active: '.hero__item.active';
 	position: relative;
-	height: 100vh;
+	height: $h;
 	color: #fff;
 	&__item {
 		overflow: hidden;
 		@include center(column);
 		position: absolute;
 		width: 100%;
-		height: 100vh;
+		height: $h;
 		font-weight: bold;
 		text-align: center;
 		opacity: 0;
@@ -208,6 +216,7 @@
 		}
 	}
 	&__contents {
+		padding: calc($box-spacing-s / 2);
 		z-index: 1;
 	}
 	$duration: 0.5s;
@@ -272,12 +281,14 @@
 		opacity: 0;
 		transition: all 0.5s;
 	}
-	&:hover {
-		#{$p}__prevBtn, #{$p}__nextBtn {
-			opacity: 0.6;
-			&:hover {
-				opacity: 1;
-				transition: none;
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			#{$p}__prevBtn, #{$p}__nextBtn {
+				opacity: 0.6;
+				&:hover {
+					opacity: 1;
+					transition: none;
+				}
 			}
 		}
 	}
@@ -396,7 +407,8 @@
 		margin-bottom: calc($box-spacing-s / 2);
 		color: #fff;
 		font-family: $font-serif;
-		font-size: $font-size-l2;
+		// font-size: $font-size-l2;
+		font-size: 10vw;
 		line-height: 1.2em;
 	}
 	&__desc {
@@ -503,8 +515,10 @@
 		&:before {
 			margin-right: 0.5em;
 		}
-		&:hover {
-			color: #000;
+		@media (hover: hover) and (pointer: fine) {
+			&:hover {
+				color: #000;
+			}
 		}
 	}
 }
