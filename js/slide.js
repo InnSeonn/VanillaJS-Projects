@@ -33,6 +33,7 @@ class Slide {
 		this.displayCount = Number(1); //표시할 슬라이드 개수
 		this.clonePageCount = Number(1);
 		this.curr = 0; //현재 페이지
+		this.prevPageX = undefined;
 		this.x = 0;
 	}
 	initSlide() {}
@@ -81,18 +82,22 @@ class Slide {
 		this.container.addEventListener('touchend', this.swipeEnd);
 	}
 	swipeMove(e) {
-		this.x = new WebKitCSSMatrix(getComputedStyle(this.container).transform).e;
-		const pos = this.x + e.movementX; //이동할 위치 - 현재 위치 + 이동한 거리
-		const slideWidth = this.slide[0].offsetWidth;
+		if(e.movementX === undefined && this.prevPageX === undefined) { //모바일 터치
+			this.prevPageX = e.touches[0].pageX;
+			return ;
+		}
 
-		if(pos >= -slideWidth * (this.clonePageCount - 1)) { //스와이프 중에 시작 지점을 지나면 끝 지점으로 이동
+		this.x = new WebKitCSSMatrix(getComputedStyle(this.container).transform).e;
+		const movementX = e.touches !== undefined ? Math.floor(e.touches[0].pageX - this.prevPageX) : e.movementX; //이동한 거리
+		const slideWidth = this.slide[0].offsetWidth;
+		if(this.x + movementX >= -slideWidth * (this.clonePageCount - 1)) { //스와이프 중에 시작 지점을 지나면 끝 지점으로 이동
 			this.x = -slideWidth * (this.slide.length + this.clonePageCount - 1);
-		} else if(pos <= -slideWidth * (this.slide.length + this.displayCount)) { //스와이프 중에 끝 지점을 지나면 시작 지점으로 이동
+		} else if(this.x + movementX <= -slideWidth * (this.slide.length + this.displayCount)) { //스와이프 중에 끝 지점을 지나면 시작 지점으로 이동
 			this.x = -slideWidth * this.displayCount;
 		}
-		
 		this.container.style.transition = 'none';
-		this.container.style.transform = `translateX(${this.x + e.movementX}px)`;
+		this.container.style.transform = `translateX(${this.x + movementX}px)`; //이동할 위치 = 현재 위치 + 이동한 거리
+		this.prevPageX = e.touches !== undefined ? e.touches[0].pageX : undefined;
 	}
 	swipeEnd(e) {
 		this.container.removeEventListener('mousemove', this.swipeMove);
@@ -100,6 +105,7 @@ class Slide {
 		this.container.removeEventListener('mouseup', this.swipeEnd);
 		this.container.removeEventListener('touchmove', this.swipeMove);
 		this.container.removeEventListener('touchend', this.swipeEnd);
+		this.prevPageX = undefined;
 
 		//움직인 방향에 따라 다음 슬라이드 위치로 이동
 		const x = new WebKitCSSMatrix(getComputedStyle(this.container).transform).e;
@@ -132,7 +138,6 @@ class Slide {
 class HeroSlide extends Slide { 
 	constructor(name) {
 		super(name);
-		// this.slide = this.slider.querySelectorAll(`.${name}__slide`);
 		this.slide[0].classList.add('active');
 		this.prevBtn = this.elem.querySelector(`.${this.name}__prevBtn`);
 		this.nextBtn = this.elem.querySelector(`.${this.name}__nextBtn`);
@@ -141,10 +146,12 @@ class HeroSlide extends Slide {
 		this.prevBtn.addEventListener('click', () => this.checkSlidePage(Number(this.curr) - 1));
 		this.nextBtn.addEventListener('click', () => this.checkSlidePage(Number(this.curr) + 1));
 		this.timer = null;
+		this.isSwipe = false;
 	}
-	initSlide () {
+	initSlide() {
 		super.setPageButton();
 		this.autoSlide();
+		super.setSwipeEvent();
 	}
 	moveToSlide(e) { 
 		if(this.timer !== null) {
@@ -170,6 +177,28 @@ class HeroSlide extends Slide {
 		}
 		this.pages[index].click();
 	}
+	swipeMove(e) {
+		if(this.isSwipe) return ;
+		if(e.movementX === undefined && this.prevPageX === undefined) { //모바일 터치
+			this.prevPageX = e.touches[0].pageX;
+			return ;
+		}
+		this.isSwipe = true;
+		if(e.touches !== undefined) {
+			e.touches[0].pageX - this.prevPageX > 0 ? this.checkSlidePage(this.curr + 1) : this.checkSlidePage(this.curr - 1);
+		} else {
+			e.movementX > 0 ? this.checkSlidePage(this.curr + 1) : this.checkSlidePage(this.curr - 1);
+		}
+	}
+	swipeEnd(e) {
+		this.container.removeEventListener('mousemove', this.swipeMove);
+		this.container.removeEventListener('mouseleave', this.swipeEnd);
+		this.container.removeEventListener('mouseup', this.swipeEnd);
+		this.container.removeEventListener('touchmove', this.swipeMove);
+		this.container.removeEventListener('touchend', this.swipeEnd);
+		this.prevPageX = undefined;
+		this.isSwipe = false;
+	}
 }
 
 class ClientSlide extends Slide {
@@ -181,7 +210,7 @@ class ClientSlide extends Slide {
 		this.setDisplayCount();
 		this.createSlideItem();
 		super.setPageButton();
-		this.setSwipeEvent();
+		super.setSwipeEvent();
 	}
 	setDisplayCount() {
 		this.displayCount = mediaSize === 'l' ? this.displayCount = Number(5)
@@ -223,7 +252,7 @@ class ReviewSlide extends Slide {
 	async initSlide() {
 		await this.getData();
 		super.setPageButton();
-		this.setSwipeEvent();
+		super.setSwipeEvent();
 	}
 	async getData() {
 		const res = await fetch(`http://localhost:3001/reviews`);
@@ -261,7 +290,7 @@ class NewsSlide extends Slide {
 		await this.getData();
 		super.setPageButton();
 		this.setMarginLeft();
-		this.setSwipeEvent();
+		super.setSwipeEvent();
 	}
 	async getData() {
 		const res = await fetch(`http://localhost:3001/news`);

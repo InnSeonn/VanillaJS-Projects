@@ -44,7 +44,10 @@ function createWorksItem(data) {
 	}
 	worksList.insertAdjacentHTML('afterbegin', html);
 	works = worksList.querySelectorAll('.portfolio');
-	works.forEach(w => w.addEventListener('mouseenter', hovering));
+	works.forEach(w => {
+		w.addEventListener('mouseenter', hovering);
+		w.addEventListener('touchstart', showHoverItem);
+	});
 	filteredWorks = [...works];
 	html = '';
 
@@ -124,6 +127,19 @@ function hovering(e) { //works mouseenter
 
 let lastPosition = undefined;
 function showHoverItem(e) { //works mousemove
+	e.preventDefault();
+	if(e.touches !== undefined) { //터치 디바이스의 경우 
+		const target = e.currentTarget.querySelector('.portfolio__links');
+		const hoveredElem = Array.from(worksList.querySelectorAll('.portfolio__links')).find(v => getComputedStyle(v).visibility === 'visible');
+		if(hoveredElem !== undefined) {
+			hoveredElem.style.opacity = '0';
+			hoveredElem.style.visibility = 'hidden';
+		}
+		target.style.opacity = '1';
+		target.style.visibility = 'visible';
+		return ;
+	}
+
 	if(getComputedStyle(this.hoverElem).animationName.includes('in')) return;
 	if(lastPosition === undefined) {
 		lastPosition = {
