@@ -3,16 +3,9 @@ const cors = require('cors');
 const app = express();
 const PORT = 3001;
 const ORIGIN = `http://localhost:${PORT}`;
-const safeSiteList = [ORIGIN, 'http://localhost:1234'];
-const corsOptions = {
-	// origin: 'http://localhost:3001',
-	origin: function(origin, callback) {
-		const isSafeSiteListed = safeSiteList.indexOf(origin) !== -1;
-		callback(null, isSafeSiteListed);
-	},
-	// credential: true,
-}
-app.use(cors(corsOptions));
+app.use(cors({origin: [
+	'http://localhost:1234',
+]}));
 app.use(express.static('public')); //정적파일(이미지) 제공
 app.listen(PORT, function() { //3001 포트로 웹서버 열기
 	console.log(`listening on ${PORT}`);
@@ -20,7 +13,6 @@ app.listen(PORT, function() { //3001 포트로 웹서버 열기
 
 /** REVIEWS 데이터 **/
 app.get('/reviews', (req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "*");
 	res.send(
 	{
 		"review": [
@@ -42,7 +34,6 @@ app.get('/reviews', (req, res, next) => {
 
 /** NEWS 데이터 **/
 app.get('/news', (req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "*");
 	res.send(
 	{
 		"news": [
@@ -73,7 +64,6 @@ app.get('/news', (req, res, next) => {
 
 /** WORKS 데이터 **/
 app.get('/works', (req, res, next) => {
-	res.header("Access-Control-Allow-Origin", "*");
 	res.send({
 		"works": [
 			{
