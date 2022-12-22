@@ -1,5 +1,13 @@
 $portfolio-margin: 1em * 2;
 
+@media screen and (min-width: $width-xs) {
+	.hero {
+		&__btnContainer {
+			display: flex;
+		}
+	}
+}
+
 @media screen and (min-width: $width-s) {
 	.hero {
 		&__btn {
