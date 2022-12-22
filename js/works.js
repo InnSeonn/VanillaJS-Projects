@@ -18,12 +18,12 @@ async function getData(url) {
 getData(`https://inn-server.vercel.app/api/works`).then(res => createWorksItem(res));
 
 /** 서버에서 가져온 데이터를 통해 HTML 요소를 생성하는 함수*/
-function createWorksItem(works) {
-	worksData = works;
+function createWorksItem(data) {
+	worksData = data;
 	let category = 'All Works';
 	let html = '';
 
-	for(let item of works) { //displayCount개의 아이템 표시
+	for(let item of data) { //displayCount개의 아이템 표시
 		const show = item.id <= displayCount ? true : false;
 		if(show) displayed++;
 		category += ', ' + item.category;
