@@ -1,31 +1,15 @@
 {
-  "name": "vanillajs",
+  "name": "westy-clone-projects",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"nodemon public/routes/index.js\" \"parcel html/home.html\""
+    "dev": "parcel html/index.html",
+    "build": "parcel build ./html/index.html --public-url ./"
   },
   "dependencies": {
-    "clearbit": "^1.3.5",
-    "concurrently": "^7.5.0",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "http": "^0.0.1-security",
+    "@parcel/transformer-sass": "^2.8.2",
+    "parcel": "^2.8.2",
     "sass": "^1.55.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20",
-    "parcel-bundler": "^1.12.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/InnSeonn/VanillaJS-Projects.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/InnSeonn/VanillaJS-Projects/issues"
-  },
-  "homepage": "https://github.com/InnSeonn/VanillaJS-Projects#readme"
+  }
 }

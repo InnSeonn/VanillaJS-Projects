@@ -255,12 +255,11 @@ class ReviewSlide extends Slide {
 		super.setSwipeEvent();
 	}
 	async getData() {
-		const res = await fetch(`http://localhost:3001/reviews`);
+		const res = await fetch(`https://inn-server.vercel.app/api/reviews`);
 		const json = await res.json();
 		this.createSlideItem(json);
 	}
-	createSlideItem(data) {
-		const reviews = data.review;
+	createSlideItem(reviews) {
 		for(let item of reviews) {
 			const li = document.createElement('li');
 			li.classList.add(`${this.name}__slide`, 'slider__slide');
@@ -293,12 +292,11 @@ class NewsSlide extends Slide {
 		super.setSwipeEvent();
 	}
 	async getData() {
-		const res = await fetch(`http://localhost:3001/news`);
+		const res = await fetch(`https://inn-server.vercel.app/api/news`);
 		const json = await res.json();
 		this.createSlideItem(json);
 	}
-	createSlideItem(data) {
-		const news = data.news;
+	createSlideItem(news) {
 		for(let item of news) {
 			const article = document.createElement('article');
 			article.classList.add(`${this.name}__slide`, 'slider__slide');
