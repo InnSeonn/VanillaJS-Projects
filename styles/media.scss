@@ -1,6 +1,6 @@
 $portfolio-margin: 1em * 2;
 
-@media screen and (min-width: $width-xs) {
+@include mobile {
 	.hero {
 		&__btnContainer {
 			display: flex;
@@ -8,7 +8,7 @@ $portfolio-margin: 1em * 2;
 	}
 }
 
-@media screen and (min-width: $width-s) {
+@include tablet {
 	.hero {
 		&__btn {
 			display: inline-block;
@@ -93,7 +93,7 @@ $portfolio-margin: 1em * 2;
 	}
 }
 
-@media screen and (min-width: $width-m) {
+@include desktop {
 	.logo > img {
 		content: url('../images/icons/logo-wt.png');
 	}
@@ -212,7 +212,7 @@ $portfolio-margin: 1em * 2;
 	}
 }
 
-@media screen and (min-width: $width-l) {
+@include wide {
 	.intro, .create__team, .works, .build__container, .footer__container {
 		@include fixed-width($max-width);
 	}
