@@ -1,36 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Raleway:wght@300;400;600;800&display=swap');
-@import "../styles/mixins.scss";
-
-$max-width: 1200px;
-$fixed-width: 900px;
-$width-xs: 500px;
-$width-s: 768px;
-$width-m: 992px;
-$width-l: 1200px;
-
-$box-spacing-s: 1em;
-$box-spacing-m: 5.375em;
-//$box-spacing-l: 6.6em;
-
-$font-serif: 'Arvo', serif;
-$font-sans: 'Raleway', sans-serif;
-
-$font-size-s4: 0.625rem;
-$font-size-s3: 0.75em;
-$font-size-s2: 0.875rem;
-$font-size-s1: 1rem;
-$font-size-m: 1.125rem;
-$font-size-l1: 1.875rem;
-$font-size-l2: 3rem;
-$font-size-l3: 4rem;
-
-$color-primary: #73B6D1;
-$color-white: #F9F9F9;
-$color-black: #282828;
-$color-grey: #A5A5A5;
-$color-grey-light: #CECECE;
-$color-grey-dark: #7D7D7D;
-$color-grey-border: #47474740;
 
 body {
 	color: var(--color-black);
