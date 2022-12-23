@@ -1,7 +1,8 @@
-@import "./common.scss";
-@import "./mixins.scss";
-@import "./keyframes.scss";
-@import "./icons.scss";
+@import './variables.scss';
+@import './mixins.scss';
+@import './common.scss';
+@import './keyframes.scss';
+@import './icons.scss';
 
 // top button
 .aside {
@@ -29,7 +30,7 @@
 	color: #fff;
 	font-size: $font-size-s2;
 	transition: all 0.5s;
-	@media (hover: hover) and (pointer: fine) {
+	@include hover {
 		&:hover {
 			background-color: #000;
 			box-shadow: 0 0 10px 0 rgb(0, 0, 0, 40%);
@@ -89,7 +90,7 @@
 		@at-root .nav.fixed & {
 			color: #000;
 		}
-		@media (hover: hover) and (pointer: fine) {
+		@include hover {
 			&::after {
 				position: absolute;
 				left: 0;
@@ -138,9 +139,10 @@
 	}
 	&__btn {
 		margin: 0 0.4em;
+		color: $color-black;
 		font-size: 1.2rem;
 		transition: all 0.5s;
-		@media (hover: hover) and (pointer: fine) {
+		@include hover {
 			&:hover {
 				color: $color-primary;
 			}
@@ -305,11 +307,11 @@
 		text-align: center;
 		opacity: 0.6;
 		transition: all 0.5s;
-		@media (hover: hover) and (pointer: fine) {
+		@include hover {
 			opacity: 0;
 		}
 	}
-	@media (hover: hover) and (pointer: fine) {
+	@include hover {
 		&:hover {
 			#{$p}__prevBtn, #{$p}__nextBtn {
 				opacity: 0.6;
@@ -358,18 +360,20 @@
 		overflow: hidden;
 		margin-bottom: 4em;
 		text-align: center;
-		&:hover {
-			#{$p}__moreText {
-				animation: showText 0.3s forwards;
-			}
-			#{$p}__moreBtn {
-				animation: colorChange 0.3s forwards;
-			}
-			#{$p}__title::after {
-				width: 1.4em;
-			}
-			#{$p}__icon {
-				animation: bounce 1s infinite;
+		@include hover {
+			&:hover {
+				#{$p}__moreText {
+					animation: showText 0.3s forwards;
+				}
+				#{$p}__moreBtn {
+					animation: colorChange 0.3s forwards;
+				}
+				#{$p}__title::after {
+					width: 1.4em;
+				}
+				#{$p}__icon {
+					animation: bounce 1s infinite;
+				}
 			}
 		}
 	}
@@ -410,11 +414,15 @@
 		opacity: 1;
 	}
 	&__moreText {
-		position: absolute;
-		right: 100%;
+		margin-left: 1em;
 		text-transform: uppercase;
-		opacity: 0;
-		transform: translate(0, 50%);
+		opacity: 1;
+		@include hover {
+			position: absolute;
+			right: 100%;
+			opacity: 0;
+			transform: translate(0, 50%);
+		}
 	}
 }
 
@@ -514,6 +522,7 @@
 		margin-bottom: 1em;
 		border-radius: 1em;
 		border: 2px solid transparent;
+		color: $color-black;
 		font-family: $font-sans;
 		font-size: $font-size-s3;
 		font-weight: bold;
@@ -542,7 +551,7 @@
 		&:before {
 			margin-right: 0.5em;
 		}
-		@media (hover: hover) and (pointer: fine) {
+		@include hover {
 			&:hover {
 				color: #000;
 			}
@@ -578,7 +587,6 @@
 		height: 100%;
 	}
 	&__links {
-		visibility: hidden;
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -586,12 +594,12 @@
 		bottom: 0;
 		@include center(column);
 		margin: calc($box-spacing-s * 2);
-		background-color: rgba(0, 0, 0, 0.8);
-		animation-duration: 0.3s;
-		animation-fill-mode: forwards;
-		@media (hover: none) and (pointer: coarse) {
-			opacity: 0;
-			transition: opacity 0.5s;
+		text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+		@include hover {
+			visibility: hidden;
+			background-color: rgba(0, 0, 0, 0.8);
+			animation-duration: 0.3s;
+			animation-fill-mode: forwards;
 		}
 	}
 	&__more {
@@ -606,9 +614,12 @@
 		text-transform: capitalize;
 	}
 	&__category {
-		color: $color-grey;
+		color: #fff;
 		font-size: $font-size-s3;
 		text-transform: capitalize;
+		@include hover {
+			color: $color-grey;
+		}
 	}
 }
 
@@ -866,4 +877,4 @@
 	}
 }
 
-@import "./media.scss";
+@import './media.scss';

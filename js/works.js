@@ -33,7 +33,6 @@ function createWorksItem(data) {
 			<div class="portfolio__contents">
 				<img class="portfolio__img" src="${item.image}" alt="">
 				<a href="#" class="portfolio__links">
-					<p class="portfolio__more icon-plus"></p>
 					<p class="portfolio__name">${item.title}</p>
 					<p class="portfolio__category">${item.category}</p>
 				</a>
@@ -46,7 +45,6 @@ function createWorksItem(data) {
 	works = worksList.querySelectorAll('.portfolio');
 	works.forEach(w => {
 		w.addEventListener('mouseenter', hovering);
-		w.addEventListener('touchstart', showHoverItem);
 	});
 	filteredWorks = [...works];
 	html = '';
@@ -127,18 +125,7 @@ function hovering(e) { //works mouseenter
 
 let lastPosition = undefined;
 function showHoverItem(e) { //works mousemove
-	e.preventDefault();
-	if(e.touches !== undefined) { //터치 디바이스의 경우 
-		const target = e.currentTarget.querySelector('.portfolio__links');
-		const hoveredElem = Array.from(worksList.querySelectorAll('.portfolio__links')).find(v => getComputedStyle(v).visibility === 'visible');
-		if(hoveredElem !== undefined) {
-			hoveredElem.style.opacity = '0';
-			hoveredElem.style.visibility = 'hidden';
-		}
-		target.style.opacity = '1';
-		target.style.visibility = 'visible';
-		return ;
-	}
+	e.preventDefault();	
 
 	if(getComputedStyle(this.hoverElem).animationName.includes('in')) return;
 	if(lastPosition === undefined) {

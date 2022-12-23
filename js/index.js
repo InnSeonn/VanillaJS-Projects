@@ -10,7 +10,6 @@ topBtn.addEventListener('click', goToScroll);
 navLliks.forEach(v => v.addEventListener('click', goToScroll));
 navBtn.addEventListener('click', () => fullNav.classList.toggle('show'));
 
-
 /** 윈도우 스크롤 이벤트 리스너 **/
 let prevScroll = 0;
 window.addEventListener('scroll', () => {
@@ -38,6 +37,10 @@ let timer = null;
 /** 타겟의 위치로 페이지를 스크롤하는 이벤트 리스너 함수 */
 function goToScroll(e) {
 	e.preventDefault();
+
+	if(fullNav.classList.contains('show')) {
+		fullNav.classList.remove('show');
+	}
 
 	const target = document.querySelector(this.getAttribute('href'));
 	const top = window.scrollY - target.offsetTop > 0 ? true : false;
