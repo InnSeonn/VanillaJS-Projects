@@ -68,9 +68,6 @@ $portfolio-margin: 1em * 2;
 		}
 	}
 	.news {
-		&__slideContainer {
-			transform: translateX(-100%);
-		}
 		&__slide {
 			min-width: 50%;
 		}
@@ -176,9 +173,6 @@ $portfolio-margin: 1em * 2;
 		align-items: stretch;
 	}
 	.news {
-		&__slideContainer {
-			transform: translateX(-66.6666%);
-		}
 		&__slide {
 			min-width: 33.3333%;
 		}
