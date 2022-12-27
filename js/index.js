@@ -49,14 +49,14 @@ function goToScroll(e) {
 		timer = setInterval(() => {
 			const dist = Math.abs(window.scrollY - target.offsetTop);
 			if(top) { //위로 스크롤
-				window.scrollTo(0, window.scrollY - Math.ceil(dist / 100));
+				window.scrollTo(0, window.scrollY - Math.ceil(dist * 0.05));
 				if(window.scrollY <= target.offsetTop) {
 					clearInterval(timer);
 					timer = null;
 				}
 			}
 			else { //아래로 스크롤
-				window.scrollTo(0, window.scrollY + Math.ceil(dist / 100));
+				window.scrollTo(0, window.scrollY + Math.ceil(dist * 0.05));
 				if(window.scrollY >= target.offsetTop) {
 					clearInterval(timer);
 					timer = null;
