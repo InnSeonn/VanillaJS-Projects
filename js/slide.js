@@ -114,7 +114,7 @@ class Slide {
 			if(e.type === 'touchend') {
 				obj.container.removeEventListener('touchmove', swipeMove);
 				obj.container.removeEventListener('touchend', swipeEnd);
-			} else if(e.type === 'mouseleave') {
+			} else if(e.type === 'mouseleave' || e.type === 'mouseup') {
 				obj.container.removeEventListener('mousemove', swipeMove);
 				obj.container.removeEventListener('mouseleave', swipeEnd);
 				obj.container.removeEventListener('mouseup', swipeEnd);
@@ -217,7 +217,7 @@ class HeroSlide extends Slide {
 		}
 
 		const obj = this;
-		if(e.type === 'touchstart') {
+		if(e.type === 'touchstart') { 
 			obj.container.addEventListener('touchmove', swipeMove);
 			obj.container.addEventListener('touchend', swipeEnd);
 		} else if(e.type === 'mousedown') {
@@ -237,7 +237,7 @@ class HeroSlide extends Slide {
 			if(e.type === 'touchend') {
 				obj.container.removeEventListener('touchmove', swipeMove);
 				obj.container.removeEventListener('touchend', swipeEnd);
-			} else if(e.type === 'mouseleave') {
+			} else if(e.type === 'mouseleave' || e.type === 'mouseup') {
 				obj.container.removeEventListener('mousemove', swipeMove);
 				obj.container.removeEventListener('mouseleave', swipeEnd);
 				obj.container.removeEventListener('mouseup', swipeEnd);
