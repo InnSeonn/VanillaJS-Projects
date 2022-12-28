@@ -12,7 +12,10 @@ navBtn.addEventListener('click', () => fullNav.classList.toggle('show'));
 
 /** 윈도우 스크롤 이벤트 리스너 **/
 let prevScroll = 0;
+let timer = null;
 window.addEventListener('scroll', () => {
+	if(timer !== null) return ;
+
 	let currScroll = window.scrollY;
 	if(prevScroll > currScroll) { //위로 스크롤
 		if(currScroll < 100) {
@@ -33,7 +36,6 @@ window.addEventListener('scroll', () => {
 	prevScroll = currScroll;
 });
 
-let timer = null;
 /** 타겟의 위치로 페이지를 스크롤하는 이벤트 리스너 함수 */
 function goToScroll(e) {
 	e.preventDefault();
@@ -49,18 +51,18 @@ function goToScroll(e) {
 		timer = setInterval(() => {
 			const dist = Math.abs(window.scrollY - target.offsetTop);
 			if(top) { //위로 스크롤
-				window.scrollTo(0, window.scrollY - Math.ceil(dist * 0.05));
 				if(window.scrollY <= target.offsetTop) {
 					clearInterval(timer);
 					timer = null;
 				}
+				window.scrollTo(0, window.scrollY - Math.ceil(dist * 0.05));
 			}
 			else { //아래로 스크롤
-				window.scrollTo(0, window.scrollY + Math.ceil(dist * 0.05));
 				if(window.scrollY >= target.offsetTop) {
 					clearInterval(timer);
 					timer = null;
 				}
+				window.scrollTo(0, window.scrollY + Math.ceil(dist * 0.05));
 			}
 		}, 0);
 	}
