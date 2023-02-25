@@ -1,6 +1,9 @@
+![project_900_2](https://user-images.githubusercontent.com/117163085/221343773-066288c6-d536-43ce-b891-cb5d8d7df068.png)
+
 # westy-clone-Projects
 웹사이트 클론 프로젝트
 
+<br/>
 
 ## 💻 프로젝트 소개
 **VanillaJS**를 최대한 사용하여 구현한 **클론 웹사이트**입니다.
@@ -13,14 +16,17 @@
 
 참고사이트 : https://7oroof.com/tfdemos/westy-architecture/
 
+<br/>
 
 ## ✨ 배포사이트
 https://inn-clone-web.vercel.app/
 
+<br/>
 
 ## ⏱ 개발 기간
 22년 11월 10일 - 22년 11월 30일
 
+<br/>
 
 ## ⚙ 기술 스택
 <img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"> <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"> <img src="https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=Sass&logoColor=white"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"> <img src="https://img.shields.io/badge/FONTAWESOME-528DD7?style=for-the-badge&logo=FontAwesome&logoColor=white"> <img src="https://img.shields.io/badge/GIT-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/GITHUB-181717?style=for-the-badge&logo=GitHub&logoColor=white">
@@ -30,10 +36,12 @@ https://inn-clone-web.vercel.app/
 - **`Git`**, **`Github`**, **`SourceTree`** : Git을 통해 소스코드를 관리했습니다. 주로 SourceTree를 통해 commit할 파일 또는 라인을 add 하고, CLI로 commit, push 하여 작업했습니다.
 - **`Vercel`** : Vercel에 Git Repository를 연동하여 웹사이트를 배포했습니다.
 - **`Clearbit API`** : 슬라이드에 필요한 회사 로고 이미지를 가져오기 위해 API를 사용했습니다.
-- **`Fontawesome`** : SNS 아이콘 등을 사용했습니다.
+- **`Fontawesome`** : SNS 아이콘 등을 사용했습니다.  
 
-
+<br/>
+  
 ## 📌 주요 기능
+
 #### Vercel를 이용한 서버 구현
 - json-server-vercel 템플릿 사용 (출처: https://github.com/kitloong/json-server-vercel)
 - json 파일로 데이터 관리 - [db.json](https://github.com/InnSeonn/json-server-vercel/blob/main/db.json)
@@ -81,3 +89,7 @@ https://inn-clone-web.vercel.app/
 
 ### 반응형
 - 디바이스 크기에 따라 반응형으로 구현
+
+<br/>
+
+https://user-images.githubusercontent.com/117163085/221343807-fac870b2-aa91-4194-9161-439702be17ac.mp4
