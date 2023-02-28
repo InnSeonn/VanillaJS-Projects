@@ -4,6 +4,7 @@ class Slide {
 		this.name = name;
 		this.data = data;
 		this.elem = document.querySelector(`.${name}`);
+		this.slider = this.elem.querySelector(`.${name}__slider`);
 		this.container = this.elem.querySelector(`.${name}__slideContainer`);
 		this.slides = null;
 		this.pagenation = this.elem.querySelector(`.${name}__pagenation`);
@@ -75,28 +76,36 @@ class Slide {
 		this.first = this.count * (index + this.cloneCount);
 	}
 	setSwipeEvent() {
-		this.container.addEventListener('mousedown', this.swipeStart);
-		this.container.addEventListener('touchstart', this.swipeStart);
+		this.slider.addEventListener('mousedown', this.swipeStart);
+		this.slider.addEventListener('touchstart', this.swipeStart);
 	}
 	swipeStart(e) {
 		const obj = this;
 		if(e.type === 'touchstart') {
-			obj.container.addEventListener('touchmove', swipeMove);
-			obj.container.addEventListener('touchend', swipeEnd);
+			obj.slider.addEventListener('touchmove', swipeMove);
+			obj.slider.addEventListener('touchend', swipeEnd);
 		} else if(e.type === 'mousedown') {
-			obj.container.addEventListener('mousemove', swipeMove);
-			obj.container.addEventListener('mouseleave', swipeEnd);
-			obj.container.addEventListener('mouseup', swipeEnd);
+			obj.slider.addEventListener('mousemove', swipeMove);
+			obj.slider.addEventListener('mouseleave', swipeEnd);
+			obj.slider.addEventListener('mouseup', swipeEnd);
 		}
 
 		let startX = e.touches ? e.touches[0].pageX : e.pageX;
 		let prevX = startX;
+		let prevY = e.touches ? e.touches[0].pageY : e.pageY;
 		let firstPos = -obj.slides[0].offsetWidth * obj.count * obj.cloneCount;
 		let lastPos = -obj.slides[0].offsetWidth * (obj.slides.length + obj.count * obj.cloneCount);
 
 		function swipeMove(e) {
 			const pageX = e.touches ? e.touches[0].pageX : e.pageX;
+			const pageY = e.touches ? e.touches[0].pageY : e.pageY;
 			const movementX = prevX - pageX;
+			const movementY = prevY - pageY;
+
+			if(Math.abs(movementX) < Math.abs(movementY)) {
+				return ;
+			}
+			
 			obj.setMovement('none', obj.getContainerX() - movementX);
 			prevX = pageX;
 
@@ -112,12 +121,12 @@ class Slide {
 
 		function swipeEnd(e) {
 			if(e.type === 'touchend') {
-				obj.container.removeEventListener('touchmove', swipeMove);
-				obj.container.removeEventListener('touchend', swipeEnd);
+				obj.slider.removeEventListener('touchmove', swipeMove);
+				obj.slider.removeEventListener('touchend', swipeEnd);
 			} else if(e.type === 'mouseleave' || e.type === 'mouseup') {
-				obj.container.removeEventListener('mousemove', swipeMove);
-				obj.container.removeEventListener('mouseleave', swipeEnd);
-				obj.container.removeEventListener('mouseup', swipeEnd);
+				obj.slider.removeEventListener('mousemove', swipeMove);
+				obj.slider.removeEventListener('mouseleave', swipeEnd);
+				obj.slider.removeEventListener('mouseup', swipeEnd);
 			}
 
 			obj.first = startX - prevX > 0 ?
